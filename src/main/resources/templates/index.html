@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Inicio</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <header th:replace="layout/plantilla :: header"></header>
+        <a th:href="@{/agregar}">[[#{persona.crear}]]</a>
+        <div th:if="${personas != null and !personas.empty}">
+            <table border="1">
+                <tr>
+                    <th th:text="#{tabla.nombre}"></th>
+                    <th th:text="#{tabla.apellido}"></th>
+                    <th th:text="#{tabla.email}"></th>
+                    <th th:text="#{tabla.telefono}"></th>
+                    <th>[[#{tabla.editar}]]</th>
+                    <th>[[#{tabla.eliminar}]]</th>
+                </tr>
+                <tr th:each="persona : ${personas}">
+                    <td th:text="${persona.nombre}">Mostrar nombre</td>
+                    <td th:text="${persona.apellido}">Mostrar apellido</td>
+                    <td th:text="${persona.email}">Mostrar email</td>
+                    <td th:text="${persona.telefono}">Mostrar telefono</td>
+                    <td><a th:href="@{/editar/} + ${persona.idPersona}" th:text="Editar"></a></td>
+                    <td><a th:href="@{/eliminar/} + ${persona.idPersona}" th:text="Eliminar"></a></td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${personas == null or personas.empty}">
+            [[#{tabla.lista-vacia}]]
+        </div>
+        <footer th:replace="layout/plantilla :: footer"></footer>
+    </body>
+</html>
